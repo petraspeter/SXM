@@ -1,0 +1,34 @@
+<!ELEMENT UCIRoad (worldTeam)*>
+<!ATTLIST UCIRoad
+    category CDATA #REQUIRED
+    actualSeason CDATA #REQUIRED
+  >
+
+<!ELEMENT worldTeam (rider)*>
+<!ATTLIST worldTeam
+    teamName CDATA #REQUIRED
+  >
+
+<!ELEMENT rider (firstName, lastName, nickName, type, dateOfBirth, nationality, height, majorAchievement)>
+
+<!ELEMENT firstName (#PCDATA)>
+<!ELEMENT lastName (#PCDATA)>
+<!ELEMENT nickName (#PCDATA)>
+<!ELEMENT dateOfBirth (#PCDATA)>
+<!ELEMENT nationality (#PCDATA)>
+<!ELEMENT height (#PCDATA)>
+<!ATTLIST height
+    unit CDATA #REQUIRED
+  >
+<!ELEMENT majorAchievement (season)*>
+
+<!ELEMENT season (achievement)+>
+<!ATTLIST season
+    year CDATA #REQUIRED
+    team CDATA #REQUIRED
+  >
+
+<!ELEMENT achievement (#PCDATA)>
+<!ATTLIST achievement
+    type CDATA #REQUIRED
+  >

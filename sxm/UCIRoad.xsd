@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:element name="UCIRoad" type="TUCIRoad"/>
+
+    <xs:complexType name="TUCIRoad">
+      <xs:sequence>
+        <xs:element name="worldTeam" type="TworldTeam" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="category" type="xs:string" use="required"/>
+      <xs:attribute name="actualSeason" type="xs:integer" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="TworldTeam">
+      <xs:sequence>
+        <xs:element name="rider" type="Trider" maxOccurs="unbounded" minOccurs="1"/>
+      </xs:sequence>
+      <xs:attribute name="teamName" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Trider">
+      <xs:sequence>
+        <xs:element name="firstName" type="xs:string"/>
+        <xs:element name="lastName" type="xs:string"/>
+        <xs:element name="nickName" type="xs:string"/>
+        <xs:element name="type" type="xs:string"/>
+        <!-- type="xs:date" neprejde na danom xml validatorom -->
+        <xs:element name="dateOfBirth" type="datum"/>
+        <xs:element name="nationality" type="xs:string"/>
+        <xs:element name="height">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:double">
+                <xs:attribute name="unit" type="xs:string" use="required"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="majorAchievement" type="TmajorAchievement"/>
+      </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="TmajorAchievement">
+      <xs:sequence>
+        <xs:element name="season" type="Tseason" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Tseason">
+      <xs:sequence>
+        <xs:element name="achievement" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="year" type="xs:integer" use="required"/>
+      <xs:attribute name="team" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:simpleType name="datum">
+      <xs:restriction base="xs:string">
+        <xs:pattern value="[0][1-9] [Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec]{3} [1][9][0-9]{2}"/>
+        <xs:pattern value="[1-2][0-9] [Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec]{3} [1][9][0-9]{2}"/>
+        <xs:pattern value="[3][0-1] [Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec]{3} [1][9][0-9]{2}"/>
+
+        <xs:pattern value="[0][1-9] [Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec]{3} [2-9][0-9]{3}"/>
+        <xs:pattern value="[1-2][0-9] [Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec]{3} [2-9][0-9]{3}"/>
+        <xs:pattern value="[3][0-1] [Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec]{3} [2-9][0-9]{3}"/>
+      </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
